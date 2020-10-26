@@ -1,0 +1,91 @@
+/* OS dark theme preference */
+@media (prefers-color-scheme: dark) {
+
+	html.respect-color-scheme-preference {
+		--global--color-background: var(--global--color-dark-gray);
+		--global--color-primary: var(--global--color-light-gray);
+		--global--color-secondary: var(--global--color-light-gray);
+		--button--color-text: var(--global--color-background);
+		--button--color-text-hover: var(--global--color-secondary);
+		--button--color-text-active: var(--global--color-secondary);
+		--button--color-background: var(--global--color-secondary);
+		--button--color-background-active: var(--global--color-background);
+	}
+
+	html.respect-color-scheme-preference body {
+		background-color: var(--global--color-background);
+	}
+}
+
+#night-day-toggle {
+	cursor: pointer;
+	position: fixed;
+	bottom: 5px;
+	right: 5px;
+	padding: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#night-day-toggle input {
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+}
+
+#night-day-toggle *,
+#night-day-toggle *:after,
+#night-day-toggle *:before {
+	box-sizing: border-box;
+}
+
+#night-day-toggle label {
+	position: relative;
+	display: block;
+	width: 60px;
+	height: 33px;
+	border-radius: 33px;
+	background-color: currentColor;
+	overflow: hidden;
+	cursor: pointer;
+	margin: 0;
+}
+
+#night-day-toggle label:before,
+#night-day-toggle label:after {
+	display: block;
+	position: absolute;
+	content: "";
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	top: 4.5px;
+	left: 4.5px;
+	transition: .1s ease-in-out;
+}
+
+#night-day-toggle label:before {
+	background-color: var(--global--color-background);
+}
+
+#night-day-toggle label:after {
+	background-color: currentColor;
+	left: -19px;
+	transform: scale(0.00001);
+}
+
+#night-day-toggle input[type="checkbox"]:checked + label:before {
+	background-color: var(--global--color-background);
+	transform: translateX(27px);
+}
+
+#night-day-toggle input[type="checkbox"]:checked + label:after {
+	transform: translateX(40px) scale(1);
+}
+
+#night-day-toggle.focused {
+	box-shadow: 0 0 0 2px currentColor;
+}
