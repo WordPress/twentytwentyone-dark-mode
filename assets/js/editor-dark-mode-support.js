@@ -1,6 +1,83 @@
-if (
-	document.body.classList.contains( 'twentytwentyone-supports-dark-theme' ) &&
-	window.matchMedia( '(prefers-color-scheme: dark)' ).matches
-) {
-	document.body.classList.add( 'is-dark-theme' );
+/* global ajaxurl, XMLHttpRequest, ResizeObserver, twentytwentyoneNightDayToggler */
+
+// Check the body class to determine if we want to add the toggler and handle dark-mode or not.
+if ( document.body.classList.contains( 'twentytwentyone-supports-dark-theme' ) ) {
+	// Add the toggler.
+	twentytwentyoneDarkModeEditorToggle();
+
+	// Add the dark-theme class if needed.
+	if ( window.matchMedia( '(prefers-color-scheme: dark)' ).matches ) {
+		document.body.classList.add( 'is-dark-theme' );
+	}
+}
+
+/**
+ * Make an AJAX request, inject the toggle and call any functions that need to run.
+ *
+ * @since 1.0.0
+ *
+ * @return {void}
+ */
+function twentytwentyoneDarkModeEditorToggle() {
+	var request = new XMLHttpRequest();
+
+	// Define the request.
+	request.open( 'POST', ajaxurl, true );
+
+	// Add headers.
+	request.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8' );
+
+	// On success call funtions that need to run.
+	request.onload = function () {
+		if ( 200 <= this.status && 400 > this.status ) {
+			// Inject the toggle.
+			document.querySelector( '.editor-styles-wrapper' ).insertAdjacentHTML( 'afterbegin', this.response );
+
+			// Re-position the toggle.
+			twentytwentyoneDarkModeEditorTogglePosition();
+
+			// Add an observer so the toggle gets re-positioned when the sidebar opens/closes.
+			twentytwentyoneDarkModeEditorTogglePositionObserver();
+
+			// Run toggler script.
+			twentytwentyoneNightDayToggler();
+		}
+	};
+
+	// Send the request.
+	request.send( 'action=tt1_dark_mode_editor_switch' );
+}
+
+/**
+ * Reposition the toggle inside the editor wrapper.
+ *
+ * @since 1.0.0
+ *
+ * @return {void}
+ */
+function twentytwentyoneDarkModeEditorTogglePosition() {
+	var toggle = document.getElementById( 'night-day-toggle' ),
+		workSpace = document.querySelector( '.editor-styles-wrapper' ),
+		workSpaceWidth = window.getComputedStyle( workSpace ).width;
+
+	// Add styles to reposition toggle.
+	toggle.style.position = 'fixed';
+	toggle.style.bottom = '30px';
+	toggle.style.width = '70px';
+	toggle.style.left = 'calc(' + workSpaceWidth + ' - 100px)';
+}
+
+/**
+ * Add a ResizeObserver to the editor wrapper
+ * and trigger the toggle repositioning when needed.
+ *
+ * @since 1.0.0
+ *
+ * @return {void}
+ */
+function twentytwentyoneDarkModeEditorTogglePositionObserver() {
+	var observer = new ResizeObserver( function() {
+		twentytwentyoneDarkModeEditorTogglePosition();
+	} );
+	observer.observe( document.querySelector( '.editor-styles-wrapper' ) );
 }

@@ -9,6 +9,9 @@ function twentytwentyoneNightDayToggler() {
 		isDarkMode = false;
 	}
 
+	if ( ! toggler ) {
+		return;
+	}
 	if ( isDarkMode ) {
 		toggler.checked = true;
 	}
