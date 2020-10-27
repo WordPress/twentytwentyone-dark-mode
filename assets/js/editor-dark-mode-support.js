@@ -4,11 +4,6 @@
 if ( document.body.classList.contains( 'twentytwentyone-supports-dark-theme' ) ) {
 	// Add the toggler.
 	twentytwentyoneDarkModeEditorToggle();
-
-	// Add the dark-theme class if needed.
-	if ( window.matchMedia( '(prefers-color-scheme: dark)' ).matches ) {
-		document.body.classList.add( 'is-dark-theme' );
-	}
 }
 
 /**
@@ -41,11 +36,37 @@ function twentytwentyoneDarkModeEditorToggle() {
 
 			// Run toggler script.
 			twentytwentyoneNightDayToggler();
+
+			// Switch editor styles if needed.
+			twentytwentyoneDarkModeEditorToggleEditorStyles();
 		}
 	};
 
 	// Send the request.
 	request.send( 'action=tt1_dark_mode_editor_switch' );
+}
+
+/**
+ * Toggle the editor dark styles depending on the user's preferences in the toggler.
+ *
+ * @since 1.0.0
+ *
+ * @return {void}
+ */
+function twentytwentyoneDarkModeEditorToggleEditorStyles() {
+	var input = document.querySelector( '#night-day-toggle input' );
+
+	if ( input.checked ) {
+		document.body.classList.add( 'is-dark-theme' );
+	}
+
+	input.addEventListener( 'change', function() {
+		if ( this.checked ) {
+			document.body.classList.add( 'is-dark-theme' );
+		} else {
+			document.body.classList.remove( 'is-dark-theme' );
+		}
+	} );
 }
 
 /**
