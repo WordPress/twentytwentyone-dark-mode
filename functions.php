@@ -180,6 +180,7 @@ function tt1_dark_mode_night_switch() {
 		<label for="night-day-toggle-input">
 			<span class="screen-reader-text"><?php esc_html_e( 'Toggle color scheme', 'twentytwentyone-dark-mode' ); ?></span>
 		</label>
+	</div>
 	<script>
 		<?php include 'assets/js/toggler.js'; // phpcs:ignore WPThemeReview.CoreFunctionality.FileInclude ?>
 	</script>
