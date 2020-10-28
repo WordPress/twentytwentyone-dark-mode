@@ -197,7 +197,7 @@ function tt1_the_dark_mode_switch() {
 	tt1_dark_mode_switch_the_html();
 	tt1_dark_mode_switch_the_script();
 }
-add_action( 'wp_footer', 'tt1_the_dark_mode_switch' );
+add_action( 'get_template_part_template-parts/header/site-branding', 'tt1_the_dark_mode_switch' );
 
 
 /**
@@ -211,12 +211,19 @@ add_action( 'wp_footer', 'tt1_the_dark_mode_switch' );
  */
 function tt1_dark_mode_switch_the_html() {
 	?>
-	<div id="night-day-toggle">
-		<input type="checkbox" id="night-day-toggle-input"/>
-		<label for="night-day-toggle-input">
-			<span class="screen-reader-text"><?php esc_html_e( 'Toggle color scheme', 'twentytwentyone-dark-mode' ); ?></span>
-		</label>
-	</div>
+	<button id="dark-mode-toggler" aria-pressed="false" onClick="toggleDarkMode()">
+		<?php
+		printf(
+			esc_html__( 'Dark theme: %s', 'twentytwentyone-dark-mode' ),
+			'<span aria-hidden="true"></span>'
+		);
+		?>
+	</button>
+	<style>
+		#dark-mode-toggler > span::before { content: '<?php esc_attr_e( 'off', 'twentytwentyone-dark-mode' ); ?>'; }
+		#dark-mode-toggler[aria-pressed="true"] > span::before { content: '<?php esc_attr_e( 'on', 'twentytwentyone-dark-mode' ); ?>'; }
+	</style>
+
 	<?php
 }
 

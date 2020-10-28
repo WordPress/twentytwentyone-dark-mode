@@ -1,4 +1,4 @@
-/* global ajaxurl, XMLHttpRequest, ResizeObserver, twentytwentyoneNightDayToggler */
+/* global ajaxurl, XMLHttpRequest, ResizeObserver, toggleDarkMode */
 
 // Check the body class to determine if we want to add the toggler and handle dark-mode or not.
 if ( document.body.classList.contains( 'twentytwentyone-supports-dark-theme' ) ) {
@@ -35,7 +35,7 @@ function twentytwentyoneDarkModeEditorToggle() {
 			twentytwentyoneDarkModeEditorTogglePositionObserver();
 
 			// Run toggler script.
-			twentytwentyoneNightDayToggler();
+			toggleDarkMode();
 
 			// Switch editor styles if needed.
 			twentytwentyoneDarkModeEditorToggleEditorStyles();
