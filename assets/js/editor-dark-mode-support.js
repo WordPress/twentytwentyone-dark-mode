@@ -23,7 +23,7 @@ function twentytwentyoneDarkModeEditorToggle() {
 	request.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8' );
 
 	// On success call funtions that need to run.
-	request.onload = function () {
+	request.onload = function() {
 		if ( 200 <= this.status && 400 > this.status ) {
 			// Inject the toggle.
 			document.querySelector( '.editor-styles-wrapper' ).insertAdjacentHTML( 'afterbegin', this.response );
