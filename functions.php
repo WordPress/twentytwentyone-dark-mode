@@ -223,6 +223,7 @@ function tt1_dark_mode_switch_the_html( $classes = 'relative' ) {
 	</button>
 	<style>
 		#dark-mode-toggler > span::before { content: '<?php esc_attr_e( 'Off', 'twentytwentyone-dark-mode' ); ?>'; }
+		#dark-mode-toggler > span { margin-<?php echo is_rtl() ? 'right' : 'left'; ?>: 5px; }
 		#dark-mode-toggler[aria-pressed="true"] > span::before { content: '<?php esc_attr_e( 'On', 'twentytwentyone-dark-mode' ); ?>'; }
 	</style>
 
