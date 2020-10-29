@@ -197,7 +197,7 @@ function tt1_the_dark_mode_switch() {
 	tt1_dark_mode_switch_the_html();
 	tt1_dark_mode_switch_the_script();
 }
-add_action( 'get_template_part_template-parts/header/site-branding', 'tt1_the_dark_mode_switch' );
+add_action( 'get_template_part_template-parts/header/site-nav', 'tt1_the_dark_mode_switch' );
 
 
 /**
@@ -211,7 +211,7 @@ add_action( 'get_template_part_template-parts/header/site-branding', 'tt1_the_da
  *
  * @return void
  */
-function tt1_dark_mode_switch_the_html( $classes = 'fixed-bottom' ) {
+function tt1_dark_mode_switch_the_html( $classes = 'relative' ) {
 	?>
 	<button id="dark-mode-toggler" class="<?php echo esc_attr( $classes ); ?>" aria-pressed="false" onClick="toggleDarkMode()">
 		<?php
