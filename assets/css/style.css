@@ -28,11 +28,12 @@
 	font-size: var(--global--font-size-xs);
 	padding: 0.5em;
 	min-height: 44px; /* a11y requirement for minimum clickable area. */
-	min-width: 44px; /* a11y requirement for minimum clickable area. */
+	min-width: max-content;
 	border: 2px solid var(--button--color-background);
 	box-shadow: none;
 	background: var(--button--color-background);
 	color: var(--button--color-text);
+	z-index: 9999; /* Necessary for the editor. */
 }
 
 #dark-mode-toggler:hover,

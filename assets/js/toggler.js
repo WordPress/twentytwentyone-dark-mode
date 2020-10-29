@@ -1,4 +1,4 @@
-function toggleDarkMode() {
+function toggleDarkMode() { // eslint-disable-line no-unused-vars
 	var toggler = document.getElementById( 'dark-mode-toggler' ),
 		html = document.querySelector( 'html' );
 
