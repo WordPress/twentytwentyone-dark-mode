@@ -207,11 +207,13 @@ add_action( 'get_template_part_template-parts/header/site-branding', 'tt1_the_da
  *
  * @since 1.0.0
  *
+ * @param string $classes The classes to add.
+ *
  * @return void
  */
-function tt1_dark_mode_switch_the_html() {
+function tt1_dark_mode_switch_the_html( $classes = 'fixed-bottom' ) {
 	?>
-	<button id="dark-mode-toggler" aria-pressed="false" onClick="toggleDarkMode()">
+	<button id="dark-mode-toggler" class="<?php echo esc_attr( $classes ); ?>" aria-pressed="false" onClick="toggleDarkMode()">
 		<?php
 		printf(
 			esc_html__( 'Dark theme: %s', 'twentytwentyone-dark-mode' ),

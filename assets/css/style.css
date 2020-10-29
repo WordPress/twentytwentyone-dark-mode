@@ -19,9 +19,6 @@
 
 #dark-mode-toggler {
 	cursor: pointer;
-	position: fixed;
-	bottom: 5px;
-	right: 5px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -34,6 +31,12 @@
 	background: var(--button--color-background);
 	color: var(--button--color-text);
 	z-index: 9999; /* Necessary for the editor. */
+}
+
+#dark-mode-toggler.fixed-bottom {
+	position: fixed;
+	bottom: 5px;
+	right: 5px;
 }
 
 #dark-mode-toggler:hover,
