@@ -1,4 +1,4 @@
-/* global ajaxurl, XMLHttpRequest, ResizeObserver, twentytwentyoneNightDayToggler */
+/* global ajaxurl, XMLHttpRequest, ResizeObserver, darkModeInitialLoad */
 
 // Check the body class to determine if we want to add the toggler and handle dark-mode or not.
 if ( document.body.classList.contains( 'twentytwentyone-supports-dark-theme' ) ) {
@@ -35,7 +35,7 @@ function twentytwentyoneDarkModeEditorToggle() {
 			twentytwentyoneDarkModeEditorTogglePositionObserver();
 
 			// Run toggler script.
-			twentytwentyoneNightDayToggler();
+			darkModeInitialLoad();
 
 			// Switch editor styles if needed.
 			twentytwentyoneDarkModeEditorToggleEditorStyles();
@@ -54,14 +54,14 @@ function twentytwentyoneDarkModeEditorToggle() {
  * @return {void}
  */
 function twentytwentyoneDarkModeEditorToggleEditorStyles() {
-	var input = document.querySelector( '#night-day-toggle input' );
+	var toggler = document.getElementById( 'dark-mode-toggler' );
 
-	if ( input.checked ) {
+	if ( 'true' === toggler.getAttribute( 'aria-pressed' ) ) {
 		document.body.classList.add( 'is-dark-theme' );
 	}
 
-	input.addEventListener( 'change', function() {
-		if ( this.checked ) {
+	toggler.addEventListener( 'click', function() {
+		if ( 'true' === toggler.getAttribute( 'aria-pressed' ) ) {
 			document.body.classList.add( 'is-dark-theme' );
 		} else {
 			document.body.classList.remove( 'is-dark-theme' );
@@ -77,15 +77,15 @@ function twentytwentyoneDarkModeEditorToggleEditorStyles() {
  * @return {void}
  */
 function twentytwentyoneDarkModeEditorTogglePosition() {
-	var toggle = document.getElementById( 'night-day-toggle' ),
+	var toggle = document.getElementById( 'dark-mode-toggler' ),
+		toggleWidth = window.getComputedStyle( document.getElementById( 'dark-mode-toggler' ) ).width,
 		workSpace = document.querySelector( '.editor-styles-wrapper' ),
 		workSpaceWidth = window.getComputedStyle( workSpace ).width;
 
 	// Add styles to reposition toggle.
 	toggle.style.position = 'fixed';
 	toggle.style.bottom = '30px';
-	toggle.style.width = '70px';
-	toggle.style.left = 'calc(' + workSpaceWidth + ' - 100px)';
+	toggle.style.left = 'calc(' + workSpaceWidth + ' - ' + toggleWidth + ' - 5px)';
 }
 
 /**

@@ -1,7 +1,22 @@
-function twentytwentyoneNightDayToggler() {
-	var toggler = document.getElementById( 'night-day-toggle-input' ),
-		isDarkMode = window.matchMedia( '(prefers-color-scheme: dark)' ).matches,
+function toggleDarkMode() { // eslint-disable-line no-unused-vars
+	var toggler = document.getElementById( 'dark-mode-toggler' ),
 		html = document.querySelector( 'html' );
+
+	if ( 'false' === toggler.getAttribute( 'aria-pressed' ) ) {
+		toggler.setAttribute( 'aria-pressed', 'true' );
+		html.classList.add( 'respect-color-scheme-preference' );
+		window.localStorage.setItem( 'twentytwentyoneDarkMode', 'yes' );
+	} else {
+		toggler.setAttribute( 'aria-pressed', 'false' );
+		html.classList.remove( 'respect-color-scheme-preference' );
+		window.localStorage.setItem( 'twentytwentyoneDarkMode', 'no' );
+	}
+}
+
+function darkModeInitialLoad() {
+	var toggler = document.getElementById( 'dark-mode-toggler' ),
+		isDarkMode = window.matchMedia( '(prefers-color-scheme: dark)' ).matches,
+		html;
 
 	if ( 'yes' === window.localStorage.getItem( 'twentytwentyoneDarkMode' ) ) {
 		isDarkMode = true;
@@ -13,31 +28,15 @@ function twentytwentyoneNightDayToggler() {
 		return;
 	}
 	if ( isDarkMode ) {
-		toggler.checked = true;
+		toggler.setAttribute( 'aria-pressed', 'true' );
 	}
 
+	html = document.querySelector( 'html' );
 	if ( isDarkMode ) {
 		html.classList.add( 'respect-color-scheme-preference' );
 	} else {
 		html.classList.remove( 'respect-color-scheme-preference' );
 	}
-
-	toggler.addEventListener( 'click', function() {
-		if ( toggler.checked ) {
-			html.classList.add( 'respect-color-scheme-preference' );
-			window.localStorage.setItem( 'twentytwentyoneDarkMode', 'yes' );
-		} else {
-			html.classList.remove( 'respect-color-scheme-preference' );
-			window.localStorage.setItem( 'twentytwentyoneDarkMode', 'no' );
-		}
-	} );
-
-	toggler.addEventListener( 'focus', function() {
-		document.getElementById( 'night-day-toggle' ).classList.add( 'focused' );
-	} );
-
-	toggler.addEventListener( 'blur', function() {
-		document.getElementById( 'night-day-toggle' ).classList.remove( 'focused' );
-	} );
 }
-twentytwentyoneNightDayToggler();
+
+darkModeInitialLoad();
