@@ -54,7 +54,7 @@ function twentytwentyoneDarkModeEditorToggle() {
  * @return {void}
  */
 function twentytwentyoneDarkModeEditorToggleEditorStyles() {
-	var toggler = document.getElementById( 'dark-mode-toggler' )
+	var toggler = document.getElementById( 'dark-mode-toggler' );
 
 	if ( 'true' === toggler.getAttribute( 'aria-pressed' ) ) {
 		document.body.classList.add( 'is-dark-theme' );
