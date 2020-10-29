@@ -43,7 +43,7 @@
 	position: absolute;
 	height: 44px;
 	top: calc(2.4 * var(--global--spacing-vertical) - 44px);
-	right: calc(50vw - var(--responsive--alignwide-width) / 2);
+	right: calc(50vw - var(--responsive--alignwide-width) / 2 - 0.5em);
 }
 
 .admin-bar #dark-mode-toggler.relative {
