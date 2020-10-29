@@ -216,14 +216,14 @@ function tt1_dark_mode_switch_the_html( $classes = 'relative' ) {
 	<button id="dark-mode-toggler" class="<?php echo esc_attr( $classes ); ?>" aria-pressed="false" onClick="toggleDarkMode()">
 		<?php
 		printf(
-			esc_html__( 'Dark theme: %s', 'twentytwentyone-dark-mode' ),
+			esc_html__( 'Dark Mode: %s', 'twentytwentyone-dark-mode' ),
 			'<span aria-hidden="true"></span>'
 		);
 		?>
 	</button>
 	<style>
-		#dark-mode-toggler > span::before { content: '<?php esc_attr_e( 'off', 'twentytwentyone-dark-mode' ); ?>'; }
-		#dark-mode-toggler[aria-pressed="true"] > span::before { content: '<?php esc_attr_e( 'on', 'twentytwentyone-dark-mode' ); ?>'; }
+		#dark-mode-toggler > span::before { content: '<?php esc_attr_e( 'Off', 'twentytwentyone-dark-mode' ); ?>'; }
+		#dark-mode-toggler[aria-pressed="true"] > span::before { content: '<?php esc_attr_e( 'On', 'twentytwentyone-dark-mode' ); ?>'; }
 	</style>
 
 	<?php
