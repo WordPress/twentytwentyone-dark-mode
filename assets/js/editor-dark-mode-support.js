@@ -54,14 +54,14 @@ function twentytwentyoneDarkModeEditorToggle() {
  * @return {void}
  */
 function twentytwentyoneDarkModeEditorToggleEditorStyles() {
-	var input = document.querySelector( '#night-day-toggle input' );
+	var toggler = document.getElementById( 'dark-mode-toggler' )
 
-	if ( input.checked ) {
+	if ( 'true' === toggler.getAttribute( 'aria-pressed' ) ) {
 		document.body.classList.add( 'is-dark-theme' );
 	}
 
-	input.addEventListener( 'change', function() {
-		if ( this.checked ) {
+	toggler.addEventListener( 'click', function() {
+		if ( 'true' === toggler.getAttribute( 'aria-pressed' ) ) {
 			document.body.classList.add( 'is-dark-theme' );
 		} else {
 			document.body.classList.remove( 'is-dark-theme' );
