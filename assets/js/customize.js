@@ -11,7 +11,7 @@
 		}
 
 		// Add notice on init if needed.
-		if ( window.matchMedia( '(prefers-color-scheme: dark)' ).matches && wp.customize( 'respect_user_color_preference' ) ) {
+		if ( wp.customize( 'respect_user_color_preference' ) ) {
 			if ( supportsDarkMode ) {
 				wp.customize( 'background_color' ).notifications.add( 'backgroundColorNotice', new wp.customize.Notification( 'backgroundColorNotice', {
 					type: 'info',
@@ -44,15 +44,13 @@
 		wp.customize( 'respect_user_color_preference', function( setting ) {
 			setting.bind( function( value ) {
 				supportsDarkMode = value && 127 < twentytwentyoneGetHexLum( wp.customize( 'background_color' ).get() );
-				if ( window.matchMedia( '(prefers-color-scheme: dark)' ).matches ) {
-					if ( ! supportsDarkMode ) {
-						wp.customize( 'background_color' ).notifications.remove( 'backgroundColorNotice' );
-					} else {
-						wp.customize( 'background_color' ).notifications.add( 'backgroundColorNotice', new wp.customize.Notification( 'backgroundColorNotice', {
-							type: 'info',
-							message: backgroundColorNotice.message
-						} ) );
-					}
+				if ( ! supportsDarkMode ) {
+					wp.customize( 'background_color' ).notifications.remove( 'backgroundColorNotice' );
+				} else {
+					wp.customize( 'background_color' ).notifications.add( 'backgroundColorNotice', new wp.customize.Notification( 'backgroundColorNotice', {
+						type: 'info',
+						message: backgroundColorNotice.message
+					} ) );
 				}
 			} );
 		} );

@@ -19,7 +19,7 @@ function tt1_dark_mode_editor_custom_color_variables() {
 		// Add dark mode variable overrides.
 		wp_add_inline_style(
 			'twenty-twenty-one-custom-color-overrides',
-			'@media (prefers-color-scheme: dark) { html.respect-color-scheme-preference .editor-styles-wrapper { --global--color-background: var(--global--color-dark-gray); --global--color-primary: var(--global--color-light-gray); --global--color-secondary: var(--global--color-light-gray); } }'
+			'html.is-dark-mode .editor-styles-wrapper { --global--color-background: var(--global--color-dark-gray); --global--color-primary: var(--global--color-light-gray); --global--color-secondary: var(--global--color-light-gray); }'
 		);
 	}
 
@@ -225,6 +225,9 @@ function tt1_dark_mode_switch_the_html( $classes = 'relative' ) {
 		#dark-mode-toggler > span::before { content: '<?php esc_attr_e( 'Off', 'twentytwentyone-dark-mode' ); ?>'; }
 		#dark-mode-toggler > span { margin-<?php echo is_rtl() ? 'right' : 'left'; ?>: 5px; }
 		#dark-mode-toggler[aria-pressed="true"] > span::before { content: '<?php esc_attr_e( 'On', 'twentytwentyone-dark-mode' ); ?>'; }
+		<?php if ( is_admin() || wp_is_json_request() ) : ?>
+			@media only screen and (max-width: 782px) { #dark-mode-toggler { margin-top: 32px; } }
+		<?php endif; ?>
 	</style>
 
 	<?php

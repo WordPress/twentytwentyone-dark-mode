@@ -4,11 +4,11 @@ function toggleDarkMode() { // eslint-disable-line no-unused-vars
 
 	if ( 'false' === toggler.getAttribute( 'aria-pressed' ) ) {
 		toggler.setAttribute( 'aria-pressed', 'true' );
-		html.classList.add( 'respect-color-scheme-preference' );
+		html.classList.add( 'is-dark-mode' );
 		window.localStorage.setItem( 'twentytwentyoneDarkMode', 'yes' );
 	} else {
 		toggler.setAttribute( 'aria-pressed', 'false' );
-		html.classList.remove( 'respect-color-scheme-preference' );
+		html.classList.remove( 'is-dark-mode' );
 		window.localStorage.setItem( 'twentytwentyoneDarkMode', 'no' );
 	}
 }
@@ -33,9 +33,9 @@ function darkModeInitialLoad() {
 
 	html = document.querySelector( 'html' );
 	if ( isDarkMode ) {
-		html.classList.add( 'respect-color-scheme-preference' );
+		html.classList.add( 'is-dark-mode' );
 	} else {
-		html.classList.remove( 'respect-color-scheme-preference' );
+		html.classList.remove( 'is-dark-mode' );
 	}
 }
 
