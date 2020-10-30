@@ -1,4 +1,4 @@
-/* global ajaxurl, XMLHttpRequest, ResizeObserver, darkModeInitialLoad */
+/* global ajaxurl, XMLHttpRequest, ResizeObserver, darkModeInitialLoad, setTimeout */
 
 // Check the body class to determine if we want to add the toggler and handle dark-mode or not.
 if ( document.body.classList.contains( 'twentytwentyone-supports-dark-theme' ) ) {
@@ -24,9 +24,31 @@ function twentytwentyoneDarkModeEditorToggle() {
 
 	// On success call funtions that need to run.
 	request.onload = function() {
+		var editor,
+			attemptDelay = 25,
+			attempt = 0,
+			maxAttempts = 8;
+
 		if ( 200 <= this.status && 400 > this.status ) {
+			editor = document.querySelector( '.editor-styles-wrapper,.edit-post-visual-editor' );
+
+			if ( null === editor ) {
+				// Try again.
+				if ( attempt < maxAttempts ) {
+					setTimeout( function() {
+						twentytwentyoneDarkModeEditorToggle();
+					}, attemptDelay );
+
+					// Increment the attempts counter.
+					attempt++;
+
+					// Double the delay, give the server some time to breathe.
+					attemptDelay *= 2;
+				}
+				return;
+			}
 			// Inject the toggle.
-			document.querySelector( '.editor-styles-wrapper' ).insertAdjacentHTML( 'afterbegin', this.response );
+			document.querySelector( '.editor-styles-wrapper,.edit-post-visual-editor' ).insertAdjacentHTML( 'afterbegin', this.response );
 
 			// Re-position the toggle.
 			twentytwentyoneDarkModeEditorTogglePosition();
@@ -79,7 +101,7 @@ function twentytwentyoneDarkModeEditorToggleEditorStyles() {
 function twentytwentyoneDarkModeEditorTogglePosition() {
 	var toggle = document.getElementById( 'dark-mode-toggler' ),
 		toggleWidth = window.getComputedStyle( document.getElementById( 'dark-mode-toggler' ) ).width,
-		workSpace = document.querySelector( '.editor-styles-wrapper' ),
+		workSpace = document.querySelector( '.editor-styles-wrapper,.edit-post-visual-editor' ),
 		workSpaceWidth = window.getComputedStyle( workSpace ).width;
 
 	// Add styles to reposition toggle.
@@ -100,5 +122,5 @@ function twentytwentyoneDarkModeEditorTogglePositionObserver() {
 	var observer = new ResizeObserver( function() {
 		twentytwentyoneDarkModeEditorTogglePosition();
 	} );
-	observer.observe( document.querySelector( '.editor-styles-wrapper' ) );
+	observer.observe( document.querySelector( '.editor-styles-wrapper,.edit-post-visual-editor' ) );
 }
