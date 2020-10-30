@@ -100,9 +100,29 @@ function twentytwentyoneDarkModeEditorToggleEditorStyles() {
  */
 function twentytwentyoneDarkModeEditorTogglePosition() {
 	var toggle = document.getElementById( 'dark-mode-toggler' ),
-		toggleWidth = window.getComputedStyle( document.getElementById( 'dark-mode-toggler' ) ).width,
-		workSpace = document.querySelector( '.editor-styles-wrapper,.edit-post-visual-editor' ),
-		workSpaceWidth = window.getComputedStyle( workSpace ).width;
+		toggleWidth,
+		workSpace,
+		workSpaceWidth,
+		attempt = 0,
+		attemptDelay = 25,
+		maxAttempts = 10;
+
+	if ( null === toggle ) {
+		// Try again.
+		if ( attempt < maxAttempts ) {
+			setTimeout( function() {
+				twentytwentyoneDarkModeEditorTogglePosition();
+			}, attemptDelay );
+
+			attempt++;
+			attemptDelay *= 2;
+		}
+		return;
+	}
+
+	toggleWidth = window.getComputedStyle( document.getElementById( 'dark-mode-toggler' ) ).width;
+	workSpace = document.querySelector( '.editor-styles-wrapper,.edit-post-visual-editor' );
+	workSpaceWidth = window.getComputedStyle( workSpace ).width;
 
 	// Add styles to reposition toggle.
 	toggle.style.position = 'fixed';
