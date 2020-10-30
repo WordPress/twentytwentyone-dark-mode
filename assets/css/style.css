@@ -75,3 +75,7 @@ html.is-dark-mode body {
 	border: 2px solid var(--button--color-text-active);
 	background-color: var(--button--color-background-active);
 }
+
+.is-IE #dark-mode-toggler {
+	display: none;
+}

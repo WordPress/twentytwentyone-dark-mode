@@ -13,6 +13,9 @@
  * @return void
  */
 function tt1_dark_mode_editor_custom_color_variables() {
+	if ( ! tt1_dark_mode_switch_should_render() ) {
+		return;
+	}
 	$background_color            = get_theme_mod( 'background_color', 'D1E4DD' );
 	$should_respect_color_scheme = get_theme_mod( 'respect_user_color_preference', true ); // @phpstan-ignore-line. Passing true instead of default value of false to get_theme_mod.
 	if ( $should_respect_color_scheme && Twenty_Twenty_One_Custom_Colors::get_relative_luminance_from_hex( $background_color ) > 127 ) {
@@ -22,7 +25,6 @@ function tt1_dark_mode_editor_custom_color_variables() {
 			'html.is-dark-mode .editor-styles-wrapper { --global--color-background: var(--global--color-dark-gray); --global--color-primary: var(--global--color-light-gray); --global--color-secondary: var(--global--color-light-gray); }'
 		);
 	}
-
 	wp_enqueue_script(
 		'twentytwentyone-dark-mode-support-toggle',
 		plugins_url( 'assets/js/toggler.js', __FILE__ ),
@@ -49,6 +51,9 @@ add_action( 'enqueue_block_editor_assets', 'tt1_dark_mode_editor_custom_color_va
  * @return void
  */
 function tt1_dark_mode_scripts() {
+	if ( ! tt1_dark_mode_switch_should_render() ) {
+		return;
+	}
 	wp_enqueue_style(
 		'tt1-dark-mode',
 		plugins_url( 'assets/css/style.css', __FILE__ ),
@@ -66,7 +71,9 @@ add_action( 'wp_enqueue_scripts', 'tt1_dark_mode_scripts' );
  * @return void
  */
 function tt1_dark_mode_customize_controls_enqueue_scripts() {
-
+	if ( ! tt1_dark_mode_switch_should_render() ) {
+		return;
+	}
 	wp_enqueue_script(
 		'twentytwentyone-customize-controls',
 		plugins_url( 'assets/js/customize.js', __FILE__ ),
@@ -95,7 +102,6 @@ add_action( 'customize_controls_enqueue_scripts', 'tt1_dark_mode_customize_contr
  * @return void
  */
 function tt1_dark_mode_register_customizer_controls( $wp_customize ) {
-
 	$wp_customize->add_setting(
 		'respect_user_color_preference',
 		array(
@@ -132,11 +138,16 @@ add_action( 'customize_register', 'tt1_dark_mode_register_customizer_controls' )
  * @return string
  */
 function tt1_dark_mode_the_html_classes( $classes ) {
+	if ( ! tt1_dark_mode_switch_should_render() ) {
+		return $classes;
+	}
+
 	$background_color            = get_theme_mod( 'background_color', 'D1E4DD' );
 	$should_respect_color_scheme = get_theme_mod( 'respect_user_color_preference', true );
 	if ( $should_respect_color_scheme && 127 <= Twenty_Twenty_One_Custom_Colors::get_relative_luminance_from_hex( $background_color ) ) {
 		return ( $classes ) ? ' respect-color-scheme-preference' : 'respect-color-scheme-preference';
 	}
+
 	return $classes;
 }
 add_filter( 'twentytwentyone_html_classes', 'tt1_dark_mode_the_html_classes' );
@@ -151,6 +162,10 @@ add_filter( 'twentytwentyone_html_classes', 'tt1_dark_mode_the_html_classes' );
  * @return string
  */
 function tt1_dark_mode_admin_body_classes( $classes ) {
+	if ( ! tt1_dark_mode_switch_should_render() ) {
+		return $classes;
+	}
+
 	global $current_screen;
 	if ( empty( $current_screen ) ) {
 		set_current_screen();
@@ -177,7 +192,9 @@ add_filter( 'admin_body_class', 'tt1_dark_mode_admin_body_classes' );
  * @return void
  */
 function tt1_dark_mode_switch_should_render() {
+	global $is_IE;
 	return (
+		! $is_IE &&
 		get_theme_mod( 'respect_user_color_preference', true ) &&
 		127 <= Twenty_Twenty_One_Custom_Colors::get_relative_luminance_from_hex( get_theme_mod( 'background_color', 'D1E4DD' ) )
 	);
