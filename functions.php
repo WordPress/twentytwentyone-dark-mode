@@ -222,14 +222,24 @@ function tt1_dark_mode_switch_the_html( $classes = 'relative' ) {
 		?>
 	</button>
 	<style>
-		#dark-mode-toggler > span::before { content: '<?php esc_attr_e( 'Off', 'twentytwentyone-dark-mode' ); ?>'; }
-		#dark-mode-toggler > span { margin-<?php echo is_rtl() ? 'right' : 'left'; ?>: 5px; }
-		#dark-mode-toggler[aria-pressed="true"] > span::before { content: '<?php esc_attr_e( 'On', 'twentytwentyone-dark-mode' ); ?>'; }
+		#dark-mode-toggler > span {
+			margin-<?php echo is_rtl() ? 'right' : 'left'; ?>: 5px;
+		}
+		#dark-mode-toggler > span::before {
+			content: '<?php esc_attr_e( 'Off', 'twentytwentyone-dark-mode' ); ?>';
+		}
+		#dark-mode-toggler[aria-pressed="true"] > span::before {
+			content: '<?php esc_attr_e( 'On', 'twentytwentyone-dark-mode' ); ?>';
+		}
 		<?php if ( is_admin() || wp_is_json_request() ) : ?>
 			.components-editor-notices__pinned ~ .edit-post-visual-editor #dark-mode-toggler {
 				z-index: 20;
 			}
-			@media only screen and (max-width: 782px) { #dark-mode-toggler { margin-top: 32px; } }
+			@media only screen and (max-width: 782px) {
+				#dark-mode-toggler {
+					margin-top: 32px;
+				}
+			}
 		<?php endif; ?>
 	</style>
 
