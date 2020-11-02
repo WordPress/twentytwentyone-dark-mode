@@ -31,6 +31,10 @@ html.is-dark-mode body {
 	box-shadow: none;
 	background: var(--button--color-background);
 	color: var(--button--color-text);
+	z-index: 9998;
+}
+
+.wp-admin #dark-mode-toggler {
 	z-index: 99999; /* Necessary for the editor. */
 }
 
